@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/x-wrt/x-wrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config1
+  CONFIG_FILE: .config_ap
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   #by default used .config for build from repo
@@ -82,21 +82,21 @@ jobs:
       run: |
         [ -e files ] && mv files xwrt/files
         if [ -e $CONFIG_FILE ];
-        then mv $CONFIG_FILE xwrt/.config1;
-             echo "Use .config1 from repo";
+        then mv $CONFIG_FILE xwrt/.config_ap;
+             echo "Use .config_ap from repo";
         else if [ ! -z "$ALT_CONFIG_URL" ];
-             then curl -Lo xwrt/.config1 $ALT_CONFIG_URL;
-                  echo "successfully download .config1 from url, .config1 in repo don't exist";
-                  echo "checking .config1";
-                  check=$(grep -e "^# Automatically generated file; DO NOT EDIT.$" xwrt/.config1 && grep -e "^# OpenWrt Configuration$" xwrt/.config);
+             then curl -Lo xwrt/.config_ap $ALT_CONFIG_URL;
+                  echo "successfully download .config_ap from url, .config_ap in repo don't exist";
+                  echo "checking .config_ap";
+                  check=$(grep -e "^# Automatically generated file; DO NOT EDIT.$" xwrt/.config_ap && grep -e "^# OpenWrt Configuration$" xwrt/.config);
                   if [ ! "$(echo $check |wc -c)" = "69" ];
-                  then echo ".config1 invalid, setting default for mt7620";
-                       rm -rf xwrt/.config1;
-                       cp xwrt/feeds/x/rom/lede/config.ramips-mt7620 xwrt/.config1;
+                  then echo ".config_ap invalid, setting default for mt7620";
+                       rm -rf xwrt/.config_ap;
+                       cp xwrt/feeds/x/rom/lede/config.ramips-mt7620 xwrt/.config_ap;
                   else echo "naive check passed";
                   fi
-             else cp xwrt/feeds/x/rom/lede/config.ramips-mt7620 xwrt/.config1;
-                  echo "use default .config1 for mt7620 in xwrt, url not set and .config1 in repo don't exist";
+             else cp xwrt/feeds/x/rom/lede/config.ramips-mt7620 xwrt/.config_ap;
+                  echo "use default .config_ap for mt7620 in xwrt, url not set and .config_ap in repo don't exist";
              fi
         fi
         chmod +x $DIY_P2_SH
