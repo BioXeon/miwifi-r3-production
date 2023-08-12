@@ -44,7 +44,7 @@ jobs:
 
     steps:
     - name: Checkout Router
-      uses: actions/checkout@router
+      uses: actions/checkout@main
 
     - name: Initialization environment
       env:
