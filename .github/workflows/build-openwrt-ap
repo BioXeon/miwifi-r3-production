@@ -43,8 +43,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout Router
-      uses: actions/checkout@router
+    - name: Checkout AP
+      uses: actions/checkout@main
 
     - name: Initialization environment
       env:
